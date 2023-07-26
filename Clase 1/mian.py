@@ -15,7 +15,7 @@ if __name__ == "__main__":
    data_serializada = pickle.dumps(person_obj)
    print (f"El tamaño de la clase Persona serializada es: {len(data_serializada)} bytes")
 
-   nombre_archivo = "./persona.pop"
+   nombre_archivo = "./Clase 1/persona.pop"
    try:
       abrir_archivo = open(nombre_archivo, "wb") # escritura binaria
       abrir_archivo.close()
