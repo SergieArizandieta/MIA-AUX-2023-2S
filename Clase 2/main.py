@@ -8,7 +8,7 @@ if __name__ == "__main__":
    person_obj.set_edad(20)
    person_obj.imprimir_info()
 
-   nombre_archivo = "example_file2.sdk"
+   nombre_archivo = "./Clase 2/example_file2.sdk"
 
    try:
       abrirArvhivo = open(nombre_archivo,"wb") # escritura binaria
