@@ -5,7 +5,7 @@ if __name__ == "__main__":
    print("---- Classe 2 ----")
    person_obj = Persona()
    person_obj.set_nombre("Sergie")
-   person_obj.set_edad(20)
+   person_obj.set_edad(2000)
    person_obj.imprimir_info()
 
    nombre_archivo = "./Clase 2/example_file2.sdk"
