@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
    # --------------------------- Reading and writing ---------------------------
 
-   file_name = "./Ej7/example_file.adsj" 
+   file_name = "./Writing objects with objects/example_file.adsj" 
    if (Fcreate_file(file_name)): exit()
    
    Crrfile = open(file_name, "rb+") 
