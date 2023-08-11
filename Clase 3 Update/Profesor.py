@@ -3,6 +3,13 @@ import struct
 from Utilities import coding_str
 
 const = '1s I q 16s 16s'
+#1s significa 1 caracter
+#I significa 1 entero
+#q significa 1 long long
+#16s significa 16 caracteres
+#16s significa 16 caracteres
+
+#1s I q 16s 9s es debido a los atributos de la clase Student
 class Profesor(ctypes.Structure):
 
     _fields_ = [
