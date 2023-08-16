@@ -1,0 +1,8 @@
+#1 char = 1byte
+#1 int = 4bytes
+#1 long = 8bytes
+
+#struct
+# Xs -> chars -> X bytes
+# I -> int -> 4 bytes
+# q -> long -> 4 bytes
