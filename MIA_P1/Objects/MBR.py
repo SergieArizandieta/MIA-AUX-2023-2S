@@ -20,15 +20,13 @@ class MBR(ctypes.Structure):
         self.date_creation = b'\0'*16
         self.asignature = -1
         self.fit = b'0'
-        self.partitions = [None,None,None,None]
+        self.partitions = [Partition(),Partition(),Partition(),Partition()]
 
     def set_infomation(self,size,fit):
         self.size = size
         self.date_creation = coding_str(datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),16)
         self.asignature = random.randint(0, 2**31 - 1)
         self.fit = coding_str(fit,1)
-        self.partitions = [Partition(),Partition(),Partition(),Partition()]
-
 
     def get_infomation(self):
         print("==MBR info")

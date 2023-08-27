@@ -10,7 +10,7 @@ def Fwrite_displacement(file, displacement, obj):
 
 def Fread_displacement(file, displacement,obj):
     try:
-        print("Reading in: ", displacement)
+        #print("Reading in: ", displacement)
         file.seek(displacement)
         data = file.read(len(obj.doSerialize()))
         #print("Size data: ",  len(data))
