@@ -8,6 +8,11 @@ def Fwrite_displacement(file, displacement, obj):
     file.seek(displacement)
     file.write(data)
 
+def Fwrite_displacement_normal(file, displacement, text):
+    data = text
+    file.seek(displacement)
+    file.write(data)
+
 def Fread_displacement(file, displacement,obj):
     try:
         #print("Reading in: ", displacement)

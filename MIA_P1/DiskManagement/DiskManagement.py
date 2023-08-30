@@ -27,7 +27,7 @@ def mount(args):
             index = int(data[0][2:3]) + 1
 
       id = "19" + str(index) + nombre_archivo
-      temp = [id, args.path]
+      temp = [id,crr_partition ,args.path]
       mounted_partitions.append(temp)
    else:
       printError("La particion no existe")

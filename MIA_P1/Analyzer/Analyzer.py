@@ -1,5 +1,6 @@
 import re
 import argparse
+
 import shlex
 from Utilities.Utilities import printConsole,printError
 from DiskManagement.DiskManagement import *
@@ -9,23 +10,28 @@ from FileSystem.FileSystem import *
 #mkdisk -size=5 -unit=M -path=home/serchiboi/aMIA/Disco4.dsk -fit=bf 
 #mkdisk -size=5 -path="/home/user/Dis co1.dsk"
 
+# "mkdisk -size=2 -unit=k -path=/home/serchiboi/aMIA/Disco4.dsk -fit=bf ",
+# "fdisk -size=1000 -path=/home/serchiboi/aMIA/Disco4.dsk -name=Particion1",
 def Commands():
    printConsole(" ---- Bienvenido al Sistema de Archivos de  - 202000119 ---- ")
+   arr = [
+      "mount -path=/home/serchiboi/aMIA/Disco4.dsk -name=Particion1",
+      'mkfs -type=full -id=191Disco4']
+   index = 0
    while True:
-      command = input('\033[36m<<System>> - Ingrese un comando -\n\033[00m').lower()
+      command = input('\033[36m<<System>> - Ingrese un comando -\n\033[00m')
       command = re.sub(r"[#][^\n]*", "", command)
-      #command = 'mkdisk -size=5 -path=/home/serchiboi/aMIA/Disco4.dsk -fit=bf -unit=m'
-      #command = 'fdisk -size=300 -path=/home/serchiboi/aMIA/Disco4.dsk -name=Particion1'
-      #command = 'mount -path=/home/serchiboi/aMIA/Disco4.dsk -name=Particion1'
-      command = 'mkfs -type=full -id=191Disco4'
+      command = arr[index]
       if command == "": continue
       elif re.search("[e|E][x|X][i|I][t|T]", command): break
       AnalyzeType(command)
+      index += 1
    printConsole("... Saliendo del programa ...")
    
 
 def AnalyzeType(entry):
    try:
+      entry= entry.lower()
       printConsole("Analizando comando: " + entry)
       split_args = shlex.split(entry)
       command = split_args.pop(0)

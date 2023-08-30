@@ -57,7 +57,6 @@ class MBR(ctypes.Structure):
         self.size, self.date_creation, self.asignature, self.fit = struct.unpack(const, dataMBR)
 
         for i in range(4):
-            print("i: ", i)
             dataPartition = data[sizeMBR + (i*sizePartition):sizeMBR + ((i+1)*sizePartition)]
             self.partitions[i] = Partition()
             self.partitions[i].doDeserialize(dataPartition)
