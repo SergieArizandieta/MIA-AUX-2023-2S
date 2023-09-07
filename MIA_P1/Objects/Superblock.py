@@ -4,11 +4,11 @@ import ctypes
 import struct
 from Utilities.Utilities import coding_str
 
-const = 'i i i i i 17s 17s i i i i i i i i i i'
+const = 'i i i i i 17s 17s i H i i i i i i i i'
 class Superblock(ctypes.Structure):
 
     _fields_ = [
-        ('filesystem_type', ctypes.c_int),
+        ('filesystem_type', ctypes.c_int), 
         ('inodes_count', ctypes.c_int),
         ('blocks_count', ctypes.c_int),
         ('free_blocks_count', ctypes.c_int),
@@ -16,7 +16,7 @@ class Superblock(ctypes.Structure):
         ('mtime', ctypes.c_char*17),
         ('umtime', ctypes.c_char*17),
         ('mcount', ctypes.c_int),
-        ('magic', ctypes.c_int),
+        ('magic', ctypes.c_uint16),
         ('inode_size', ctypes.c_int),
         ('block_size', ctypes.c_int),
         ('first_ino', ctypes.c_int), 
@@ -40,7 +40,7 @@ class Superblock(ctypes.Structure):
         print(f"mtime: {self.mtime.decode()}")
         print(f"umtime: {self.umtime.decode()}")
         print(f"mcount: {self.mcount}")
-        print(f"magic: {self.magic}")
+        print(f"magic: {hex(self.magic)}")
         print(f"inode_size: {self.inode_size}")
         print(f"block_size: {self.block_size}")
         print(f"first_ino: {self.first_ino}")
@@ -77,7 +77,7 @@ class Superblock(ctypes.Structure):
         return serialize
     
     def doDeserialize(self, data):
-        self.filesystem_type,
+        (self.filesystem_type, 
         self.inodes_count,
         self.blocks_count,
         self.free_blocks_count,
@@ -93,5 +93,6 @@ class Superblock(ctypes.Structure):
         self.bm_inode_start,
         self.bm_block_start,
         self.inode_start,
-        self.block_start = struct.unpack(const, data)
+        self.block_start) = struct.unpack(const, data) 
 
+    

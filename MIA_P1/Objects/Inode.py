@@ -14,7 +14,7 @@ class Inode(ctypes.Structure):
         ("i_ctime", ctypes.c_char * 17),
         ("i_mtime", ctypes.c_char * 17),
         ("i_block", ctypes.c_int * 15),
-        ("i_type", ctypes.c_char),
+        ("i_type", ctypes.c_char), # 0 = folder, 1 = file
         ("i_perm", ctypes.c_char * 3)
     ]
 

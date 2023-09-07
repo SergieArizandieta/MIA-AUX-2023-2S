@@ -1,7 +1,7 @@
 from Utilities.Utilities import printConsole,printError
 
 def Fwrite_displacement(file, displacement, obj):
-    print("Writing in: ", displacement)
+    #print("Writing in: ", displacement)
     #print("Size data: ",  len(data))
     data = obj.doSerialize()
     
@@ -21,7 +21,7 @@ def Fread_displacement(file, displacement,obj):
         #print("Size data: ",  len(data))
         obj.doDeserialize(data)
     except Exception as e:
-        print(f"Error reading object err: {e}")
+        printError(f"Error reading object err: {e}")
 
 def Fcreate_file(file_name):
     try:

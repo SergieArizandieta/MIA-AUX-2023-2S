@@ -2,11 +2,13 @@ import struct
 import math
 import datetime
 from Load.Load import *
-from Utilities.Utilities import printConsole,printError,get_sizeB
-from Global.Global import mounted_partitions
+from Utilities.Utilities import printConsole,printError,get_sizeB,coding_str,printSuccess
+from Global.Global import *
 from Objects.Inode import *
 from Objects.Fileblock import *
 from Objects.Superblock import *
+from Objects.Content import *
+from Objects.Folderblock import *
 
 def mkfs(args):
     print(" --- Ejecutando mkfs --- ")
@@ -48,11 +50,17 @@ def mkfs(args):
     if args.fs == '2':
         create_ext2(n, mPartition, new_superblock, date)
     elif args.fs == '3':
-       
         pass
 
-def create_ext2(n, mPartition, new_superblock, fecha):
+def create_ext2(n, mPartition, new_superblock, date):
     print(" --- Creando ext2 --- ")
+    #crear la carpeta raiz "/" -> cree inodo 0
+    #crear el archivo "user.txt" en "/" -> cree inodo 1
+
+    #cree carpeta de bloque (bloque0) -> inodo 1
+    #crear archivo de bloque (bloque1) "1,G,root\n1,U,root,root,123\n"
+
+    # inodo 0 -> bloque0 -> bloque1 -> bloque1
 
     new_superblock.filesystem_type = 2
     new_superblock.bm_inode_start = mPartition[1].start + struct.calcsize(Superblock().getConst())
@@ -70,9 +78,7 @@ def create_ext2(n, mPartition, new_superblock, fecha):
 
     Crrfile = open(mPartition[2], "rb+")
 
-    Fwrite_displacement(Crrfile, mPartition[1].start, new_superblock)
-
-    zero = '0'
+    zero = b'\0'
     for i in range(n):
         Fwrite_displacement_normal(Crrfile, new_superblock.bm_inode_start + i, zero)
 
@@ -87,13 +93,71 @@ def create_ext2(n, mPartition, new_superblock, fecha):
     for i in range(3 * n):
         Fwrite_displacement(Crrfile, new_superblock.block_start + i * struct.calcsize(Fileblock().getConst()), new_Fileblock)
 
+
+    Inode0 = Inode()
+    Inode0.i_uid = 1
+    Inode0.i_gid = 1
+    Inode0.i_size = 0
+    Inode0.i_atime = date
+    Inode0.i_ctime = date
+    Inode0.i_mtime = date
+    Inode0.i_type = b'\0'
+    Inode0.i_perm = b'664'
+    Inode0.i_block[0] = 0
+
+    # . | 0
+    # .. | 0
+    # user.txt | 1
+    #
+
+    # contenido = Content()
+    # contenido.get_infomation()
+
+    Folderblock0 = Folderblock()
+    Folderblock0.Content[0].b_inodo = 0
+    Folderblock0.Content[0].b_name = b'.'
+    Folderblock0.Content[1].b_inodo = 0
+    Folderblock0.Content[1].b_name = b'..'
+    Folderblock0.Content[2].b_inodo = 1
+    Folderblock0.Content[2].b_name = b'user.txt'
+
+    
+    Inode1 = Inode()
+    Inode1.i_uid = 1
+    Inode1.i_gid = 1
+    Inode1.i_size = struct.calcsize(Fileblock().getConst())
+    Inode1.i_atime = date
+    Inode1.i_ctime = date
+    Inode1.i_mtime = date
+    Inode1.i_type = b'1'
+    Inode1.i_perm = b'664'
+    Inode1.i_block[0] = 1
+
+
+    data_usertxt = '1,G,root\n1,U,root,root,123\n'
+    Fileblock1 = Fileblock()
+    Fileblock1.b_content = coding_str(data_usertxt,64)
+
+
+    Fwrite_displacement(Crrfile, mPartition[1].start, new_superblock)
+    
+    # fill bitmap  inodes
+    Fwrite_displacement_normal(Crrfile, new_superblock.bm_inode_start, b'\1')
+    Fwrite_displacement_normal(Crrfile, new_superblock.bm_inode_start+1, b'\1')
+    
+    # fill bm blocks
+    Fwrite_displacement_normal(Crrfile, new_superblock.bm_block_start, b'\1')
+    Fwrite_displacement_normal(Crrfile, new_superblock.bm_block_start+1, b'\1')
+
+    # fill inodes  
+    Fwrite_displacement(Crrfile, new_superblock.inode_start, Inode0)
+    Fwrite_displacement(Crrfile, new_superblock.inode_start+1*struct.calcsize(Inode().getConst()), Inode1)
+
+    # fill blocks
+    Fwrite_displacement(Crrfile, new_superblock.block_start, Folderblock0)
+    Fwrite_displacement(Crrfile, new_superblock.block_start+1*struct.calcsize(Fileblock().getConst()), Fileblock1)
+
     Crrfile.close()
+
+    printSuccess("Se creo el sistema de archivos ext2")
     
-    
-
-
-
-
-
-    pass
-     

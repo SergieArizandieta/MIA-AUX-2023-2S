@@ -5,22 +5,31 @@ import shlex
 from Utilities.Utilities import printConsole,printError
 from DiskManagement.DiskManagement import *
 from FileSystem.FileSystem import *
+from User.User import *
 
-#mkdisk -size=5 -unit=M -"path=/home/user/Dis co1.dsk" -fit=bf -name=Disco1
-#mkdisk -size=5 -unit=M -path=home/serchiboi/aMIA/Disco4.dsk -fit=bf 
-#mkdisk -size=5 -path="/home/user/Dis co1.dsk"
 
-# "mkdisk -size=2 -unit=k -path=/home/serchiboi/aMIA/Disco4.dsk -fit=bf ",
-# "fdisk -size=1000 -path=/home/serchiboi/aMIA/Disco4.dsk -name=Particion1",
+# [
+#       "mkdisk -size=20 -unit=m -path=/home/serchiboi/aMIA/Disco1.dsk",
+#       "fdisk -type=P -unit=K -name=part1 -size=7680 -path=/home/serchiboi/aMIA/Disco1.dsk"
+#       ]
+
+# [
+#       "mount -path=/home/serchiboi/aMIA/Disco1.dsk -name=part1",
+#       'mkfs -type=full -id=191Disco1'
+#       ]
+
 def Commands():
    printConsole(" ---- Bienvenido al Sistema de Archivos de  - 202000119 ---- ")
    arr = [
-      "mount -path=/home/serchiboi/aMIA/Disco4.dsk -name=Particion1",
-      'mkfs -type=full -id=191Disco4']
+      "mount -path=/home/serchiboi/aMIA/Disco1.dsk -name=part1",
+      'mkfs -type=full -id=191Disco1',
+      'login -user=root -pass=123 -id=191Disco1'
+      ]
    index = 0
    while True:
       command = input('\033[36m<<System>> - Ingrese un comando -\n\033[00m')
       command = re.sub(r"[#][^\n]*", "", command)
+
       command = arr[index]
       if command == "": continue
       elif re.search("[e|E][x|X][i|I][t|T]", command): break
@@ -51,7 +60,24 @@ def AnalyzeType(entry):
          print(" ------ Se dectecto mkfs ------ ")
          fn_mkfs(split_args)
          print(" ------ Termino mkfs ------ ")
+      elif(command == "login"):
+         print(" ------ Se dectecto login ------ ")
+         fn_login(split_args)
+         print(" ------ Termino login ------ ")
    except Exception as e: pass
+
+def fn_login(split_args):
+   try:
+      parser = argparse.ArgumentParser(description="Parámetros")
+      parser.add_argument("-user", required=True)
+      parser.add_argument("-pass", required=True)
+      parser.add_argument("-id", required=True)
+      args = parser.parse_args(split_args)
+
+      login(args)
+
+   except SystemExit: printError("Análisis de argumentos")
+   except Exception as e: printError(str(e))
 
 def fn_mkfs(split_args):
    try:

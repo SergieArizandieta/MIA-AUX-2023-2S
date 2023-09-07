@@ -27,6 +27,7 @@ def mount(args):
             index = int(data[0][2:3]) + 1
 
       id = "19" + str(index) + nombre_archivo
+      print("id:",id)
       temp = [id,crr_partition ,args.path]
       mounted_partitions.append(temp)
    else:
@@ -40,9 +41,6 @@ def fdisk(args):
    crr_mbr = MBR()
    Crrfile = open(args.path, "rb+")
    Fread_displacement(Crrfile,0,crr_mbr)
-   crr_mbr.partitions[0].get_infomation()
-   crr_mbr.partitions[1].get_infomation()
-   crr_mbr.partitions[2].get_infomation()
 
    if args.size is not None: # creting partition
       start = len(MBR().doSerialize())
@@ -55,8 +53,10 @@ def fdisk(args):
          else:
             break
 
+      size_bytes = get_sizeB(args.size,args.unit)
+
       new_partition = Partition()
-      new_partition.set_infomation('1',args.type,args.fit,start,args.size,args.name)
+      new_partition.set_infomation('1',args.type,args.fit,start,size_bytes,args.name)
       crr_mbr.partitions[index] = new_partition
       Fwrite_displacement(Crrfile,0,crr_mbr)
       Crrfile.close()
