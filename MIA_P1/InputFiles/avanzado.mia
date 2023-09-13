@@ -120,6 +120,8 @@ mkfile -path=/home/archivos/user/docs/Tarea2.txt -size=768
 
 mkfile -path=/home/archivos/user/docs/Tarea3.txt -size=10 #-cont=/home/archivos/user/Desktop/IA.txt
 
+mkfile -path=/home/Tarea5.txt -cont=/home/serchiboi/IA.txt #agregar cualquier texto en este archivo 
+
 mkfile -path="/home/archivos/noexiste/b1.txt" #ERRNO EXISTE RUTA
 
 mkfile -path="/home/archivos/b1.txt" -size=-45 #ERR NEGATIVO
