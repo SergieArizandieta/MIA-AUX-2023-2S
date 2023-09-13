@@ -30,5 +30,6 @@ class Fileblock(ctypes.Structure):
         return serialize
     
     def doDeserialize(self, data):
-        self.b_content = struct.unpack(const, data)
+        data = struct.unpack(const, data)
+        self.b_content = data[0]
 

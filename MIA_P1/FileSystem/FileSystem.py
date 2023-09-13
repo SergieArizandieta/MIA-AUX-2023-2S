@@ -68,6 +68,9 @@ def create_ext2(n, mPartition, new_superblock, date):
     new_superblock.inode_start = new_superblock.bm_block_start + 3 * n
     new_superblock.block_start = new_superblock.inode_start + n * struct.calcsize(Inode().getConst())
 
+    new_superblock.inode_size = struct.calcsize(Inode().getConst())
+    new_superblock.block_size = struct.calcsize(Fileblock().getConst())
+
     # se crea inodo 0
     # cree un bloque de carpetas
     # se crea indo 1 para el user txt este n=indoo crea un bloque de archivos
