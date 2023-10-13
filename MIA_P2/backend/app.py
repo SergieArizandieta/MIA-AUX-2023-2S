@@ -1,19 +1,21 @@
-from flask import Flask, jsonify,request
-from flask_cors import CORS
+from flask import Flask, jsonify, request
+from flask_cors import CORS  
+
+from MIA_P1.readData import readData
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/": {"origins": "*"}})
+CORS(app)  
 
 @app.route('/')
 def hello():
     return jsonify({'message': 'Hello, World!'})
 
-@app.route('/api/data', methods=['GET'])
-def get_data():
-    data = {'key1': 'value1', 'key2': 'value2'}
-    return jsonify(data)
-
-
+@app.route('/api-execute', methods=['POST'])
+def execute():
+    data = request.get_json()
+    entry_value = data.get('entry')
+    response = readData(entry_value)
+    return jsonify( {'salida': response})
 
 if __name__ == '__main__':
-    app.run(port=8000)
+    app.run(host= 'localhost',port= 8000,)
