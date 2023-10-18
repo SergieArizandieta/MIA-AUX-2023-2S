@@ -1,0 +1,9 @@
+#ENTRADA PRIMER PARTE MIA
+#Seccion N - Sergie Arizandieta
+#2S 2023
+#CAMBIAR /home/serchiboi -> POR SU USUARIO EJ ->  /home/SU_USER 
+#CAMBIAR LOS IDS
+
+
+#CREACION DE DISCOS---------------------------------------------------
+Mkdisk -size=50 -unit=M -path=./Disco1.dsk -fit=FF                   # 50M

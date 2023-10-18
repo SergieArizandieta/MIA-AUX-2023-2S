@@ -71,6 +71,7 @@ export default function Dashboard() {
         minRows={10}
         maxRows={10}
         fullWidth
+        onChange={handleChange}
         value={text}
       />
 

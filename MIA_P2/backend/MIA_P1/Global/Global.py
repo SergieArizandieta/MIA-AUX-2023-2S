@@ -1,0 +1,2 @@
+mounted_partitions = []
+userSesion = []
