@@ -5,12 +5,12 @@
 #CAMBIAR LOS IDS
 
 #CREACION DE DISCOS------------------------------------------------
-Mkdisk -s=20 -u=m -path=/home/serchiboi/archivos/Discos/Disco1.dsk
-Mkdisk -s=20 -u=m -path=/home/serchiboi/archivos/Discos/Disco2.dsk
+Mkdisk -size=20 -unit=m -path=/home/serchiboi/archivos/Discos/Disco1.dsk
+Mkdisk -size=20 -unit=m -path=/home/serchiboi/archivos/Discos/Disco2.dsk
 
 #CREACION DE PARTICION------------------------------------------------
-fdisk -t=P -u=K -name=Part1 -s=7680 -path=/home/serchiboi/archivos/Discos/Disco1.dsk -f=BF
-fdisk -t=P -u=K -name=Part1 -s=7680 -path=/home/serchiboi/archivos/Discos/Disco2.dsk -f=BF
+fdisk -type=P -unit=K -name=Part1 -size=7680 -path=/home/serchiboi/archivos/Discos/Disco1.dsk -fit=BF
+fdisk -type=P -unit=K -name=Part1 -size=7680 -path=/home/serchiboi/archivos/Discos/Disco2.dsk -fit=BF
 
 #MOUNT------------------------------------------------
 mount -path=/home/serchiboi/archivos/Discos/Disco1.dsk -name=Part1 #191a -> id1 -> cambiar el 191a por el ID que a ustedes les genera
@@ -29,9 +29,9 @@ pause
 mkdisk -param=x #ERR
 
 #LOGIN------------------------------------------------
-login -usr=root -pass=123 -id=191a
+login -user=root -pass=123 -id=191a
 
-login -usr=root -pass=123 -id=191a #ERR SESION INICIADA
+login -user=root -pass=123 -id=191a #ERR SESION INICIADA
 
 pause
 mkdisk -param=x #ERR
@@ -56,18 +56,18 @@ pause
 mkdisk -param=x #ERR
 
 #CREACION DE USUARIOS------------------------------------------------
-mkusr -usr="usuario1" -pass=password -grp=root
-mkusr -usr="user1" -pass=abc -grp=usuarios
-mkusr -usr="user2" -pass=abc -grp=usuarios
-mkusr -usr="user2" -pass=abc -grp=usuarios #ERR EL USUARIO YA EXISTE
-mkusr -usr="user3" -pass=abc -grp=system #ERR GRUPO NO EXISTE
+mkusr -user="usuario1" -pass=password -grp=root
+mkusr -user="user1" -pass=abc -grp=usuarios
+mkusr -user="user2" -pass=abc -grp=usuarios
+mkusr -user="user2" -pass=abc -grp=usuarios #ERR EL USUARIO YA EXISTE
+mkusr -user="user3" -pass=abc -grp=system #ERR GRUPO NO EXISTE
 cat -file=/user.txt
 
 pause
 mkdisk -param=x #ERR
 
 #ELIMINANDO USUARIOS------------------------------------------------
-rmusr -usr=user2
+rmusr -user=user2
 cat -file=/user.txt
 
 pause
@@ -94,8 +94,8 @@ mkdir -path=/sys
 mkdir -path=/tmp
 mkdir -path=/var
 mkdir -path="/home/archivos/archivos 19"
-mkdir -p -path=/home/archivos/user/docs/usac #p->r
-mkdir -p -path=/home/archivos/carpeta1/carpeta2/carpeta3/carpeta4/carpeta5 #p->r
+mkdir -r -path=/home/archivos/user/docs/usac 
+mkdir -r -path=/home/archivos/carpeta1/carpeta2/carpeta3/carpeta4/carpeta5 
 
 #------------------------REPORTE 2----------------
 rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte2_tree.jpg" -name=tree
@@ -109,20 +109,20 @@ logout #ERR NO HAY SESION INICIADA
 pause
 mkdisk -param=x #ERR
 
-login -usr=usuario1 -pass=password -id=191a
+login -user=usuario1 -pass=password -id=191a
 
 #CREACION DE ARCHIVOS------------------------------------------------
-mkfile -path=/home/archivos/user/docs/Tarea.txt -s=75
-mkfile -path=/home/archivos/user/docs/Tarea2.txt -s=768
+mkfile -path=/home/archivos/user/docs/Tarea.txt -size=75
+mkfile -path=/home/archivos/user/docs/Tarea2.txt -size=768
 
 #Para este comando hay que crear un archivo en la computadora y en cont poner la ruta de ese archivo
 #Crear un archivo txt en su escritorio llamado IA
 
-mkfile -path=/home/archivos/user/docs/Tarea3.txt -s=10 #-cont=/home/archivos/user/Desktop/IA.txt
+mkfile -path=/home/archivos/user/docs/Tarea3.txt -size=10 #-cont=/home/archivos/user/Desktop/IA.txt
 
 mkfile -path="/home/archivos/noexiste/b1.txt" #ERRNO EXISTE RUTA
 
-mkfile -path="/home/archivos/b1.txt" -s=-45 #ERR NEGATIVO
+mkfile -path="/home/archivos/b1.txt" -size=-45 #ERR NEGATIVO
 
 mkfile -r -path=/home/archivos/user/docs/usac/archivos/proyectos/fase1/entrada.txt #RECURSIVO
 
@@ -172,7 +172,7 @@ mkdisk -param=x #ERR
 
 logout
 
-login -usr=root -pass=123 -id=191a
+login -user=root -pass=123 -id=191a
 
 #CHMOD cambio de permisos------------------------------------------------
 chmod -r -path="/home/archivos/archivos 19" -ugo=001
@@ -180,9 +180,9 @@ chmod -path="/home/archivos/user/docs/Tarea2.txt" -ugo=001
 
 logout
 
-LOGIN -usr=usuario1 -pass=password -id=191a
+LOGIN -user=usuario1 -pass=password -id=191a
 
-mkdir -p -path="/home/archivos/archivos 19/no/tiene/que/hacerla/por/permisos" #ERR NO TIENE PERMISOS DE ESCRITURA
+mkdir -r -path="/home/archivos/archivos 19/no/tiene/que/hacerla/por/permisos" #ERR NO TIENE PERMISOS DE ESCRITURA
 cat -file=/home/archivos/user/docs/Tarea2.txt #ERR NO TIENE PERMISOS DE LECTURA
 
 #------------------------REPORTES 6----------------
@@ -198,7 +198,7 @@ pause
 mkdisk -param=x #ERR
 
 logout
-login -usr=root -pass=123 -id=192a
+login -user=root -pass=123 -id=192a
 
 pause
 mkdisk -param=x #ERR
@@ -272,10 +272,10 @@ mkdisk -param=x #ERR
 mkgrp -name=usuarios
 
 #CREAR USUARIO------------------------------------------------
-mkusr -usr="user1" -pass=abc -grp=usuarios
+mkusr -user="user1" -pass=abc -grp=usuarios
 
 #CAMBIAR PROPIETARIO------------------------------------------------
-chown -path=/1-2 -usr=user1
+chown -path=/1-2 -user=user1
 
 #------------------------REPORTES 10----------------
 rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte10_tree.jpg" -name=tree
@@ -286,11 +286,11 @@ mkdisk -param=x #ERR
 
 
 #CREAR ARCHIVO------------------------------------------------
-mkfile -path=/1-2/F.txt -s=768
-mkfile -path=/1-2/FF.txt -s=1792 # INDIRECTO SIMPLE
-mkfile -path=/2-1/FFF.txt -s=18176 # INDIRECTO DOBLE
-mkfile -path=/2-1/FFFF.txt -s=280320 # INDIRECTO TRIPLE
-mkfile -path=/3-1/F.txt -s=768
+mkfile -path=/1-2/F.txt -size=768
+mkfile -path=/1-2/FF.txt -size=1792 # INDIRECTO SIMPLE
+mkfile -path=/2-1/FFF.txt -size=18176 # INDIRECTO DOBLE
+mkfile -path=/2-1/FFFF.txt -size=280320 # INDIRECTO TRIPLE
+mkfile -path=/3-1/F.txt -size=768
 
 #CREAR CARPETA INDIRECTOS------------------------------------------------
 mkdir -path=/Findirecto

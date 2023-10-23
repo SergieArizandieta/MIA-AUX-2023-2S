@@ -1,7 +1,0 @@
-#CREACION DE DISCOS---------------------------------------------------
-
-mkdisk -size=20 -unit=m -path="B:\GitHub\EXAMPLES-MIA-AUX\MIA_P2\backend\MIA_P1\Disc\Disco1.dsk"
-fdisk -type=P -unit=K -name=part1 -size=7680 -path="B:\GitHub\EXAMPLES-MIA-AUX\MIA_P2\backend\MIA_P1\Disc\Disco1.dsk"
-mount -path="B:\GitHub\EXAMPLES-MIA-AUX\MIA_P2\backend\MIA_P1\Disc\Disco1.dsk" -name=part1
-mkfs -type=full -id=191Disco1
-login -user=root -pass=123 -id=191Disco1'
