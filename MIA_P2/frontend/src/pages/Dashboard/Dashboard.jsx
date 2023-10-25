@@ -30,7 +30,8 @@ export default function Dashboard() {
 
     setExit("Ejecutando...");
     const data = { entry: text }
-    fetch(`http://3.88.65.124:8000//api-execute`, {
+    //http://3.88.65.124:8000//api-execute
+    fetch(`http://localhost:8000//api-execute`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
