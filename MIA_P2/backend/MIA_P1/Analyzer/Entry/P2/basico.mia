@@ -66,11 +66,6 @@ fdisk -type=P -unit=m -name=Part27 -size=4 -path=/home/serchiboi/archivos/Disco3
 fdisk -type=P -unit=m -name=Part28 -size=1 -path=/home/serchiboi/archivos/Disco3.dsk     #1M
 #LIBRE DISCO 3: 10-9= 1 -> 10%
 
-#ERRORES DISCO 3
-fdisk -add=-1000 -unit=m -path=/home/serchiboi/archivos/Disco3.dsk -name=Part26 # ERR SIZE NEGATIVO
-fdisk -add=1000 -unit=m -path=/home/serchiboi/archivos/Disco3.dsk -name=Part26 # ERR PARTICION NO TIENE ESPACIO
-#LIBRE DISCO 3: 10-9= 1 -> 10%
-
 #DISCO 5
 fdisk -type=E -unit=k -name=Part29 -size=5120 -path="/home/serchiboi/archivos/mis archivos/Disco5.dsk" -fit=BF # 5MB
 fdisk -type=L -unit=k -name=Part30 -size=1024 -path="/home/serchiboi/archivos/mis archivos/Disco5.dsk" -fit=BF # 1MB
