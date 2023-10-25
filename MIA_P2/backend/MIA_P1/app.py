@@ -3,7 +3,7 @@ from flask_cors import CORS
 from readData import readData
 
 app = Flask(__name__)
-CORS(app)  
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/')
 def hello():
@@ -17,4 +17,4 @@ def execute():
     return jsonify( {'salida': response})
 
 if __name__ == '__main__':
-    app.run(host= 'localhost',port= 8000,)
+    app.run(host= '0.0.0.0',port= 8000,)
